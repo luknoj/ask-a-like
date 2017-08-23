@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import './css/bootstrap.css';
 import './css/my_app.css';
+import Navigation from "./Navigation.js";
+import InputPost from "./InputPost.js";
+import RenderPost from "./RenderPost.js";
+import DeletePost from "./DeletePost.js";
+import RenderComment from "./RenderComment.js";
+import InputComment from "./InputComment.js";
 import firebase from './firebase.js';
 
 class App extends Component {
@@ -112,171 +118,14 @@ class App extends Component {
             </div>
           </div>
         </header>
-        {/* ::::::::::::::::::NAWIGACJA:::::::::::::::::: */}
-
-        <div className="row">
-          <div className="col-sm-12">
-            <ul className="nav nav-pills justify-content-center">
-              <li className="nav-item">
-                <a className="nav-link" href="#">Home</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Posts</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Disabled</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* ::::::::::::::::::WPROWADZANIE POSTOW::::::::::::::::::*/}
-
-        <div className='row justify-content-center'>
-          <div className='col-md-3'>
-            <section id="Add post">
-              <form onSubmit={(e) => this.handleSubmitPost(e)}>
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <input type="text"
-                         className="form-control"
-                         name="postUsername"
-                         placeholder="name"
-                         required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="postTitle"
-                    placeholder="Title"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="text">Input your question here!</label>
-                  <textarea
-                    type="text"
-                    className="form-control"
-                    name="postContent"
-                    placeholder="question"
-                  />
-                </div>
-                <div className="form-group">
-                  <button className='add-post'>Add Item</button>
-                </div>
-              </form>
-            </section>
-          </div>
-
-
-          {/* ::::::::::::::::::WYSWIETLANIE POSTOW i KOMENTARZY::::::::::::::::::*/}
-
-          {/*::::::::::::::::::WYSWIETLANIE POSTOW::::::::::::::::::*/}
+        <Navigation/>
+        <InputPost/>
           <div className='margin-t col-sm-6'>
             <section className='display-item'>
-              <div>
-                <h1 className="text-center">Newest Posts</h1>
-                  {this.state.posts.map((post) => {
-                    {/*console.log('kurna:' + post.id);*/}
-                    return (
-                      <div className="margin-b card">
-                          <div className="card-header">
-                            <div className="row">
-                              <div className="col-md-6">
-                                <strong>{post.postTitle}</strong>
-                              </div>
-                            </div>
-                        </div>
-                        <div className="card-body">
-                        <div className="col post-content rounded margin-b">
-                          <p className="card-text">{post.postContent}</p>
-                        </div>
-                          {/*::::::::::::::::::USUWANIE POSTA::::::::::::::::::*/}
-                          <div className="row">
-                            <div className="col-md-6">
-                              <button className="btn btn-primary" onClick={() => this.removeItemPost(post.id)}>Remove post
-                              </button>
-                            </div>
-
-                            <div className="col-md-6">
-                              <footer className="blockquote-footer margin-b text-right">Author: {post.postUsername}
-                                <br />{post.postDate}</footer>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/*::::::::::::::::::WYSWIETLANIE KOMENTARZY::::::::::::::::::*/}
-                        <div className="card-body">
-                          <section id="display-comment">
-                            <div className="row align-items-top justify-content-center">
-                              <div className="col">
-                              {this.state.comments.map((comment) => {
-                                if(post.postId === comment.postId)
-                                {
-                                return(
-                                    <div className="row">
-                                    <div className="col-md-11 comment margin-b rounded">
-                                      <p className="card-text text-justify margin-t">
-                                        {comment.commentContent}
-                                      </p>
-                                      <p className="blockquote-footer text-right">
-                                        {comment.commentUsername}
-                                        <br/>
-                                        {comment.commentDate}
-                                      </p>
-                                    </div>
-                                    <div className="col-md-1">
-                                    <button
-                                      className="btn btn-primary" onClick={() => this.removeItemComment(comment.id)}>X</button>
-                                    </div>
-                                    </div>
-                                );
-                              };
-                            })}
-                              </div>
-                            </div>
-                          </section>
-                        </div>
-                        {/*WPROWADZANIE KOMENTARZA*/}
-
-                        <div className="card-body">
-                          <section id="Add comment">
-                            <form onSubmit={(e) => this.handleSubmitComment(e, post)}>
-                              <div className="row align-items-top">
-                                <div className="col-md-2">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    name="commentUsername"
-                                    placeholder="name"
-                                    required
-                                  />
-                                  <button className='btn btn-primary margin-t size-go'>GO!</button>
-                                </div>
-
-                                <div className="col-md-10">
-                                  <textarea
-                                    rows="6"
-                                    type="text"
-                                    className="form-control"
-                                    name="commentContent"
-                                    placeholder="Your post"
-                                    required />
-                                </div>
-                              </div>
-                            </form>
-                          </section>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+                <RenderPost/>
+                <DeletePost/>
+                <RenderComment/>
+                <InputComment/>
             </section>
           </div>
         </div>
