@@ -217,7 +217,7 @@ class App extends Component {
                             <div className="row align-items-top justify-content-center">
                               <div className="col">
                               {this.state.comments.map((comment) => {
-                                if(post.postId == comment.postId)
+                                if(post.postId === comment.postId)
                                 {
                                 return(
                                     <div className="row">
