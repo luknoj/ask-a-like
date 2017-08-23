@@ -8,6 +8,6 @@ Verion 0.0.1s:
 
 How to use:
 
-npm install
-npm start  -- to test locally
-npm build  -- to build
+npm install <br/>
+npm start  -- to test locally <br/>
+npm build  -- to build <br/>
